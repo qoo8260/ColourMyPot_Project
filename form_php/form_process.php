@@ -1,13 +1,16 @@
+
+
 <?php 
 
 // define variables and set to empty values
-$name_error=""; $pass1_error =""; $pass2_error=""; $email_error =""; $phone_error =""; $url_error = "";
-$name =""; $pass1 =""; $pass2 =""; $email =""; $phone =""; $message =""; $success = "";
+$name_error=""; $pass1_error =""; $pass2_error=""; $email_error =""; $phone_error =""; $url_error = ""; $lastname_error="";
+$name =""; $pass1 =""; $pass2 =""; $email =""; $phone =""; $message =""; $success = ""; $lastname="";
 
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["name"])) {
-    $name_error = "Name is required";
+  
+    if (empty($_POST["name"])) {
+    $name_error = "First Name is required";
   } else {
     $name = test_input($_POST["name"]);
     // check if name only contains letters and whitespace
@@ -16,6 +19,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 
+    
+        if (empty($_POST["lastname"])) {
+    $lastname_error = "Last Name is required";
+  } else {
+    $lastname = test_input($_POST["lastname"]);
+    // check if name only contains letters and whitespace
+    if (!preg_match("/^[a-zA-Z ]*$/",$lastname)) {
+      $lastname_error = "Only letters and white space allowed"; 
+    }
+  }
     
     if (empty($_POST["pass1"])) {
     $pass1_error = "Password is required";
@@ -65,10 +78,99 @@ if (empty($_POST["pass2"])) {
   }
 
   
-  if ($name_error == '' and $email_error == '' and $phone_error == '' and $pass1_error == '' and $pass2_error == ''){
+  if ($name_error == '' and $email_error == '' and $phone_error == '' and $pass1_error == '' and $pass2_error == ''
+     and $lastname_error==''){
       unset($_POST['submit']);
+      $success="successful";
+      
+      
+      
+      $servername = "localhost";
+      $username = "root";
+      $password = "";
+
+// Create connection
+$conn = mysqli_connect($servername, $username, $password);
+      
+      
+
+if(!$conn)
+{
+    echo "not connected to the server";
+}
+if(!mysqli_select_db($conn, 'mysql'))
+ {
+    echo "database not selected";
+ }
+      $hashed_password = password_hash($pass2, PASSWORD_DEFAULT);
+      
+      $da = (isset($_POST['disability'])) ? 1 : 0;
+
+      
+
+      
+      
+            $sql = "INSERT INTO paint_users (first, last, password, email, mobile, disability)
+VALUES ('$name', '$lastname', '$hashed_password', '$email', '$phone', '$da')";
+      
+      if(!mysqli_query($conn,$sql))
+      {
+              $success="Use the other email.";
+      }
+      else
+      {
+              $success="successful";
+      }
+      
+      mysqli_close($conn);
+
+/*
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+//echo "Connected successfully";
+
+      //database name
+
+
+      
+      $sql = "INSERT INTO paint_users (first name,last name,password,email,mobile number,admin,disability)
+VALUES ('$name', '$lastname', '$pass2', '$email', '$phone', 'false', 'false')";
+
+if (mysqli_query($conn, $sql)) 
+{
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+}
+
+mysqli_close($conn);
+      
+      */
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
     }
+    
+    
+    
+    
+    else
+    {
+              $success="unsuccessful";
+
+    }
+
   
 }
 
@@ -78,3 +180,4 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+?>

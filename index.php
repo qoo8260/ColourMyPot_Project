@@ -10,11 +10,19 @@
   <form id="contact" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
     <h3>Registration</h3>
     <h4>Please join us</h4>
+      
+
+      
+      
     <fieldset>
-      <input placeholder="Your Username" type="text" name="name" tabindex="1" autofocus>
+      <input placeholder="Your First name" type="text" name="name" tabindex="1" autofocus>
       <span class="error"><?= $name_error ?></span>
     </fieldset>
       
+     <fieldset>
+      <input placeholder="Your Last name" type="text" name="lastname" tabindex="1" autofocus>
+      <span class="error"><?= $lastname_error ?></span>
+    </fieldset>
       
         <fieldset>
       <input placeholder="Please enter new password" type="password" name="pass1" tabindex="1" autofocus>
@@ -40,14 +48,22 @@
       <span class="error"><?= $phone_error ?></span>
     </fieldset>
       
-      
+    <fieldset>
+    <input type="checkbox" id="disability" name="disability" tabindex="3">
+    <label for="disability">Do you have a Disability</label>
+    </fieldset>
 
 
     <fieldset>
-      <button name="submit" type="submit" id="contact-submit" data-submit="Completed Registration">Submit</button>
+      <button name="submit" type="submit" id="contact-submit" data-submit="Completed Registration">Register</button>
+        <div class="success"><?= $success ?></div>
+
     </fieldset>
-    <div class="success"><?= $success ?></div>
+      
+      
+      
   </form>
+    
 </div>
      
 

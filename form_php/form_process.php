@@ -1,10 +1,19 @@
 
 
 <?php 
-
+include 'config.php';
 // define variables and set to empty values
 $name_error=""; $pass1_error =""; $pass2_error=""; $email_error =""; $phone_error =""; $url_error = ""; $lastname_error="";
 $name =""; $pass1 =""; $pass2 =""; $email =""; $phone =""; $message =""; $success = ""; $lastname="";
+
+
+
+session_start();
+if(isset($_SESSION['login']))
+{
+         header("Location: http://localhost/welcome.php");
+}
+
 
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -84,7 +93,7 @@ if (empty($_POST["pass2"])) {
       $success="successful";
       
       
-      
+      /*
       $servername = "localhost";
       $username = "root";
       $password = "";
@@ -92,7 +101,7 @@ if (empty($_POST["pass2"])) {
 // Create connection
 $conn = mysqli_connect($servername, $username, $password);
       
-      
+      */
 
 if(!$conn)
 {
@@ -102,6 +111,7 @@ if(!mysqli_select_db($conn, 'mysql'))
  {
     echo "database not selected";
  }
+      
       $hashed_password = password_hash($pass2, PASSWORD_DEFAULT);
       
       $da = (isset($_POST['disability'])) ? 1 : 0;

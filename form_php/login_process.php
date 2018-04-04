@@ -1,7 +1,7 @@
 
 
 <?php 
-
+include 'config.php';
 // define variables and set to empty values
 $password="";
 $password_error="";
@@ -12,7 +12,7 @@ $email_password="";
 $success = ""; 
 
 
-
+/*
 //=================================mysql connection
       $servername = "localhost";
       $username = "root";
@@ -20,7 +20,7 @@ $success = "";
 
 // Create connection
 $conn = mysqli_connect($servername, $username, $password);
-      
+*/      
       
 
 if(!$conn)
@@ -33,38 +33,91 @@ if(!mysqli_select_db($conn, 'mysql'))
  }
 //=================================mysql connection end
 
-
-
-
-
+session_start();
+if(isset($_SESSION['login']))
+{
+         header("Location: http://localhost/welcome.php");
+}
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  session_start();
 
 
           $email = mysqli_real_escape_string($conn,$_POST['email']);
       $password = mysqli_real_escape_string($conn,$_POST['password']); 
 
     
-    
-          $sql = "SELECT email FROM paint_users WHERE email = '$email' and password = '$password'";
+      $pass_sql = "SELECT password FROM paint_users WHERE email = '$email'";
+      $pass_result = mysqli_query($conn,$pass_sql);    
+
+    while ($pass_row = $pass_result->fetch_assoc()) {
+       
+        
+    if(password_verify($password, $pass_row['password']))
+      {
+      //$sql = "SELECT email FROM paint_users WHERE email = '$email' and password = '$password'";
+      /*
+      $sql = "SELECT email FROM paint_users WHERE email = '$email'";
       $result = mysqli_query($conn,$sql);
-      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-      $active = $row['active'];
-      
       $count = mysqli_num_rows($result);
       
-      // If result matched $myusername and $mypassword, table row must be 1 row
-		
+    
+    
+
       if($count == 1) {
-         session_register("email");
+         session_start();
          $_SESSION['login_user'] = $email;
-         
-         header("location: welcome.php");
+         header("Location: http://localhost/welcome.php");
       }else {
          $success = "Your Login Name or Password is invalid";
       }
-   }
+      */
+        
+        
+         $_SESSION['login_user'] = $email;
+         $_SESSION['login'] = "yes";
+         header("Location: http://localhost/welcome.php");
+        
+        
+        
+        
+      }
+
+    else{
+         $success = "Your Login Name or Password is invalid";
+    }
+        
+        
+        
+        
+        
+    }
+       }
+    /*
+      //$sql = "SELECT email FROM paint_users WHERE email = '$email' and password = '$password'";
+      
+      $sql = "SELECT email FROM paint_users WHERE email = '$email'";
+      $result = mysqli_query($conn,$sql);
+      
+      //$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      //$active = $row['active'];
+      
+      $count = mysqli_num_rows($result);
+      
+    
+    
+      session_start();
+
+      // If result matched $myusername and $mypassword, table row must be 1 row
+
+      if($count == 1) {
+         $_SESSION['login_user'] = $email;
+         header("Location: http://localhost/welcome.php");
+      }else {
+         $success = "Your Login Name or Password is invalid";
+      }
+      */
+
+
 
 
 /*

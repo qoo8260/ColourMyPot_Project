@@ -133,6 +133,7 @@ VALUES ('$name', '$lastname', '$hashed_password', '$email', '$phone', '$da')";
       }
       
       mysqli_close($conn);
+      
 
 /*
 // Check connection

@@ -22,6 +22,7 @@
     </fieldset>
       
 
+    <a href="registration.php">register</a>
 
 
     <fieldset>

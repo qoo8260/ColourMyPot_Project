@@ -53,6 +53,7 @@
     <label for="disability">Do you have a Disability</label>
     </fieldset>
 
+    <a href="login.php">log in</a>
 
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="Completed Registration">Register</button>

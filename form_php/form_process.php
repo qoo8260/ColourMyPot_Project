@@ -11,7 +11,7 @@ $name =""; $pass1 =""; $pass2 =""; $email =""; $phone =""; $message =""; $succes
 session_start();
 if(isset($_SESSION['login']))
 {
-         header("Location: http://localhost/welcome.php");
+         header("Location: ../welcome.php");
 }
 
 
@@ -93,21 +93,12 @@ if (empty($_POST["pass2"])) {
       $success="successful";
       
       
-      /*
-      $servername = "localhost";
-      $username = "root";
-      $password = "";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password);
-      
-      */
 
 if(!$conn)
 {
     echo "not connected to the server";
 }
-if(!mysqli_select_db($conn, 'mysql'))
+if(!mysqli_select_db($conn, $db))
  {
     echo "database not selected";
  }
@@ -129,36 +120,13 @@ VALUES ('$name', '$lastname', '$hashed_password', '$email', '$phone', '$da')";
       }
       else
       {
-              $success="successful";
+              $success="successful. Press Log In";
       }
       
       mysqli_close($conn);
       
 
-/*
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-//echo "Connected successfully";
 
-      //database name
-
-
-      
-      $sql = "INSERT INTO paint_users (first name,last name,password,email,mobile number,admin,disability)
-VALUES ('$name', '$lastname', '$pass2', '$email', '$phone', 'false', 'false')";
-
-if (mysqli_query($conn, $sql)) 
-{
-    echo "New record created successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-
-mysqli_close($conn);
-      
-      */
       
       
       

@@ -6,12 +6,19 @@
     session_start();
 if($_SESSION['login'] != "yes")
 {
-         header("Location: http://localhost/login.php");
+         header("Location: login.php");
 }
-echo "welcome : ".$_SESSION['login_user'];
+if($_SESSION['admin'] ==1)
+{
+         header("Location: admin_dashboard/admin_home.php");
+}
+else
+{
+             header("Location: customer_dashboard/customer_home.php");
+
+}
 
 ?>
-    <a href="logoff.php">log off</a>
 
     </body>
 </html>

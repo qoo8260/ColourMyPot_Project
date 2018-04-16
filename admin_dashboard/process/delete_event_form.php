@@ -8,13 +8,9 @@ $id="";
 $selected="";
 
 
-
-
-
 //form is submitted with POST method
-if (isset($_POST['submit'])) {
+if (isset($_POST['delete_button'])) {
 
-    
 
     
         if(!$conn)
@@ -29,49 +25,134 @@ if(!mysqli_select_db($conn, $db))
     
     
     
-                              $sql = "DELETE * FROM ongoing_events";    
-                          if(!mysqli_query($conn,$sql))
-                          {
-                                  $success="Unsucessful";
-                          }
-                          else
-                          {
-                                  $success="successful";
-                          }
+    
+    
+    
+    
+    
+    
+    
+        //$selected=$_POST['selected'];
+        //$max=count($selected);
+    
+    
+        //         echo "aaaaaaaaaaaaaa";
 
-                          mysqli_close($conn);
-    
-    
-    
-    
-    
-    
-    
-        $selected=$_POST['selected'];
-        $max=count($selected);
-        if(!empty($selected))
+        if(!empty($_POST['selected']))
 
         {
             
-            $i=0;
-            for($i=0; $i <$max; $i++)
-            {
-                if(isset($selected[i]))
+                foreach ($_POST['selected'] as $selected) 
                 {
-                          $sql = "DELETE * FROM ongoing_events";    
+                            //echo $selected."<br>";
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    $sql_command = "SELECT * FROM ongoing_events WHERE id='$selected'";
+                    $result_query = mysqli_query($conn, $sql_command);    
+
+                    
+                    while ($sql_row = $result_query->fetch_assoc()) 
+                    {
+                        
+                                $_time=$sql_row['date'];
+                        
+                        
+
+
+                              $sql = "DELETE FROM attendence WHERE time = '$_time'";    
+                              if(!mysqli_query($conn,$sql))
+                              {
+                                      //echo "unsuccessful";
+                              }
+                              else
+                              {
+                                      //echo "successful";
+                              }
+                              
+
+                              
+                        
+                    
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                          $sql = "DELETE FROM ongoing_events WHERE id='$selected'";    
                           if(!mysqli_query($conn,$sql))
                           {
-                                  $success="Unsucessful";
+                                  //$success="Unsucessful";
                           }
                           else
                           {
-                                  $success="successful";
+                                  //$success="successful";
+                          }
+
+                          mysqli_close($conn);
+                }
+            
+            /*
+            $i=0;
+            for($i=0; $i <$max; $i++)
+            {
+
+                if(isset($selected[i]))
+                {
+                    
+                    
+
+                          $sql = "DELETE * FROM ongoing_events WHERE id='$selected[i]'";    
+                          if(!mysqli_query($conn,$sql))
+                          {
+                                  //$success="Unsucessful";
+                          }
+                          else
+                          {
+                                  //$success="successful";
                           }
 
                           mysqli_close($conn);
 
                 }
             }
+            */
                     
 
         }

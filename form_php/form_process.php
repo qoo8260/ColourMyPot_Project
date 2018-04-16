@@ -17,6 +17,7 @@ if(isset($_SESSION['login']))
 
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//if (isset($_POST["submit"])) {
   
     if (empty($_POST["name"])) {
     $name_error = "First Name is required";
@@ -90,6 +91,7 @@ if (empty($_POST["pass2"])) {
   if ($name_error == '' and $email_error == '' and $phone_error == '' and $pass1_error == '' and $pass2_error == ''
      and $lastname_error==''){
       unset($_POST['submit']);
+            
       $success="successful";
       
       

@@ -30,6 +30,7 @@ if(isset($_SESSION['login']))
 }
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//if (isset($_POST["submit"])) {
 
 
           $email = mysqli_real_escape_string($conn,$_POST['email']);

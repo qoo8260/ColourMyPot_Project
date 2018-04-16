@@ -17,6 +17,7 @@ if($_SESSION['login'] != "yes" || $_SESSION['admin']!=1)
 
 //form is submitted with POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//if (isset($_POST["submit"])) {
   
     
   if (empty($_POST["time"])) {
